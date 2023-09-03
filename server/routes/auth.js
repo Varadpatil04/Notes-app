@@ -9,7 +9,7 @@ passport.use(
   new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/callback"
+    callbackURL: process.env.GOOGLE_CALLBACK_URL
   },
     async function (accessToken, refreshToken, profile, done) {
       // console.log(profile);
@@ -43,7 +43,7 @@ router.get('/auth/google',
   passport.authenticate('google', { scope: ['email', 'profile'] },
   ));
 
-router.get('/auth/google/callback',
+router.get('/google/callback',
   passport.authenticate('google',{
     failureRedirect: '/login-fail',
     successRedirect: '/dashboard'
